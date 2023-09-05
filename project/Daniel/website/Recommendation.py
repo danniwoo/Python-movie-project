@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-
-df = pd.read_csv(r"C:\Users\Admin\Desktop\project\shoppingcart.csv")
+# from . import df as df
+df = pd.read_csv(r"C:\Users\Daniel\Python-movie-project\project\Daniel\website\static\shoppingcart.csv")
 search_history=['']
 shoppingcart_list=['']
 def generate_recommendations(search_history, shoppingcart_list, min_support=0.01, min_confidence=0.5):
@@ -11,11 +11,11 @@ def generate_recommendations(search_history, shoppingcart_list, min_support=0.01
     
     #過濾帳單出現次數小於2次的record
     item_counts = df['Itemname'].value_counts(ascending=False)
-    filtered_items = item_counts.loc[item_counts > 1].reset_index()['index']
+    filtered_items = item_counts.loc[item_counts > 1].index
     Product = Product[Product['Itemname'].isin(filtered_items)]
     
     bill_counts = Product['BillNo'].value_counts(ascending=False)
-    filtered_bills = bill_counts.loc[bill_counts > 1].reset_index()['index']
+    filtered_bills = bill_counts.loc[bill_counts > 1].index
     Product = Product[Product['BillNo'].isin(filtered_bills)]
     
     # Create pivot_table for encoding
