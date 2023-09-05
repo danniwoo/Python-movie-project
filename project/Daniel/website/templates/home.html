@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}changed{% endblock %}
+
+
+{% block content %}
+<h1>Welcome to shopping cart</h1>
+<!-- <form  class="d-flex" role="search" method="post" action="/search_input"> -->
+<div class="col-12 d-flex">
+  <input class="col-md-8 form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_input"
+    id="search_bar_input">
+  <button class="btn btn-outline-success " type="submit" id="search_btn" onclick="search_input()">Search</button>
+</div>
+<!-- </form> -->
+<h1>siuuuuu</h1>
+{% endblock %}
+
+
+{% block script%}
+<script>
+  $(function () {
+    var availableTags = [
+      {% for Itemname in Itemnames %}
+              "{{Itemname}}",
+    {% endfor %}
+      ];
+  $("#search_bar_input").autocomplete({
+    source: availableTags
+  });
+
+    } );
+
+  // calling search api
+  function search_input() {
+    console.log("search_input")
+    const search_bar_input = $("#search_bar_input").val().trim()
+    console.log(search_bar_input)
+    console.log(search_bar_input.length > 0)
+    if (search_bar_input.length > 0) {
+
+
+      fetch("/search_input", {
+        method: "POST",
+        body: JSON.stringify({ search_input: search_bar_input }),
+      }).then((response) => response.text()) // Convert the response to text
+        .then((html) => {
+          console.log(html);
+          // Replace the entire page content with the new HTML
+          document.body.innerHTML = html;
+          // document.innerHTML
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    // $.ajax({
+    //   url:"",
+    //   type:'POST',
+    //   dataType:'json',
+    //   data: JSON.stringify({
+    //     search_input:search_bar_input
+    //   }),
+    //   contentType: "application/json; charset=utf-8",
+    //   success: function(response){
+    //     console.log(response);
+    //     console.log(JSON.parse(response));
+    //   },
+    //   error: function(xhr, status, error){
+    //     console.log(xhr.responseText);
+    //   }
+    // });
+  }
+</script>
+{% endblock %}

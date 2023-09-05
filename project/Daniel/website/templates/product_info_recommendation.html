@@ -1,0 +1,780 @@
+{% extends "base.html" %}
+{% block title %}changed{% endblock %}
+
+{% block content %}
+<h1>Welcome to shopping siuu</h1>
+<!-- <form  class="d-flex" role="search" method="post" action="/search_input"> -->
+<div class="col-12 d-flex mb-2">
+    <input class="col-md-8 form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_input"
+        id="search_bar_input">
+    <button class="btn btn-outline-success " type="submit" id="search_btn" onclick="search_input()">Search</button>
+</div>
+<!-- </form> -->
+<h1>Result</h1>
+<hr class="my-4">
+
+<!-- <section class="h-100 h-custom" style="background-color: #d2c9ff;">
+    <div class="container py-5 h-100" >
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12">
+          <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+            <div class="card-body p-0">
+              <div class="row g-0">
+                <div class="col-lg-8"> -->
+                  <!-- <div class="p-5"> -->
+                    <div class="row justify-content-center mt">
+                        <!-- 課程介紹區 -->
+                        <div class="col-md-12 p-5 mt-2 mb-2 bg-light rounded-3 mt-4">
+                            <div class="container-fluid pt-1 pb-4 card" data-creatorid="" id="eventCard">                   
+                    <!-- =============================== -->
+
+                    <div class="row mb-4 d-flex align-items-center">
+                        <!-- <div class="col-md-12"> -->
+                    
+                            <div class="col-md-3 ">
+                                <!-- <h6 class="text-muted">Shirt</h6> -->
+                                <h6 class="text-black mb-0" id="item_name">Product Name</h6>
+                            </div>
+                    
+                            <div class="col-md-2">
+                                <h6 class="mb-0" id="item_price">Price</h6>
+                            </div>
+                            <div class="col-md-2 me-2">
+                                <h6 class="mb-0" id="item_price">Quantity</h6>
+                            </div>
+                            <div class="col-md-5">
+                            </div>
+<hr class="my-4">
+
+<div class="row mb-4 d-flex justify-content-between align-items-center">
+    <!-- <div class="col-md-12"> -->
+
+        <div class="col-md-3 ">
+            <!-- <h6 class="text-muted">Shirt</h6> -->
+            <h6 class="text-black mb-0" id="item_name">{{product[0]}}</h6>
+        </div>
+
+        <div class="col-md-2">
+            <h6 class="mb-0" id="item_price">{{product[1]}}</h6>
+        </div>
+        <div class="col-md-3 me-2">
+            <!-- <input type="number" id="points" name="points" step="1" min="1"> -->
+            <div class="form-outline"> 
+                <!-- style="width: 22rem;" -->
+                <input min="1" max="100" type="number" id="typeNumber" class="form-control" />
+            </div>
+        </div>
+
+        
+        <div class="col-md-3">
+            <!-- <a href="#!" class="text-muted"><i class="fas fa-times"></i></a> -->
+            <button type="button" class="btn btn-success">Add to Cart</button>
+        </div>
+    <!-- </div> -->
+</div>
+                    <!-- =============================== -->
+                  <!-- </div> -->
+                </div>
+              </div>
+            </div>
+        <!-- </div></div></div></div></section> -->
+{% endblock %}
+
+
+{% block script%}
+<script>
+    $("#item_name").text("{{product[0]}}")
+    $("#item_price").text("{{product[1]}}")
+
+</script>
+{% endblock %}
+
+
+
+
+{% block recommendation %}
+
+<div class="container main-content py-5">
+        <!-- 精選課程 -->
+        <div class="row ">
+          <div class="row">
+              <div class="col-1"></div>
+              <div class="col-auto">
+                  <h1>You might also like: </h1>
+
+              </div>
+          </div>
+          <div id="carouselExampleIndicators" class="carousel carousel-dark carousel-fade slide"
+              data-bs-ride="carousel">
+              <!-- 往前翻 -->
+              <div class="row ">
+                  <div class="col-1 my-auto">
+                      <button class="" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                          <div class="justify-content-center align-items-center">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <!-- <span class="visually-hidden">Previous</span> -->
+
+                          </div>
+                      </button>
+                  </div>
+                  <div class="col-10">
+
+
+                      <div class="carousel-indicators">
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
+                              class="active" aria-current="true" aria-label="Slide 1"></button>
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                              aria-label="Slide 2"></button>
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                              aria-label="Slide 3"></button>
+                      </div>
+
+
+                      <div class="carousel-inner">
+                          <!-- 第一頁=================================================== -->
+                          <div class="carousel-item active w-100 object-fit-cover">
+                              <!-- 1張圖卡=================================================================================================================== -->
+                              <div id="coursePage1" class="row">
+                                  <div class="col-4 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=10" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder ">
+                                                            WHITE HANGING HEART T-LIGHT HOLDER
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <!-- <span class="card-text  text-muted event_city">台北市</span> -->
+                                                      </div>
+                                                      <!-- <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div> -->
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <span class="col-2 mb-0  fw-bolder ">
+                                                            $
+                                                          </span>
+                                                          <span class="col-4 mb-0  fw-bolder text-muted text-truncate">
+                                                            4.95
+                                                          </h6>
+                                                      </div> 
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+ 
+                                  <!-- 1張圖卡=================================================================================================================== -->
+                                  <div class="col-4 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=10" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=10"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- 1張圖卡=================================================================================================================== -->
+                                  <div class="col-4 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=10" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=10"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                              </div>
+
+
+                              <!-- <img src="https://picsum.photos/1920/300/?random=10" class="d-block" alt="..."> -->
+                          </div>
+                          <!-- 第二頁================================================================================================================== -->
+                          <div class="carousel-item w-100 object-fit-cover">
+                              <!-- 1張圖卡=================================================================================================================== -->
+                              <div id="coursePage2" class="row">
+                                  <div class="col-3 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=11" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=11"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- 1張圖卡=================================================================================================================== -->
+                                  <div class="col-3 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=11" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=11"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- 1張圖卡=================================================================================================================== -->
+                                  <div class="col-3 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=11" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=11"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- 1張圖卡=================================================================================================================== -->
+                                  <div class="col-3 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=11" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=11"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- <img src="https://picsum.photos/1920/300/?random=11" class="d-block" alt="..."> -->
+                          </div>
+                          <!-- 第三頁===================================================================================================================== -->
+                          <div class="carousel-item w-100 object-fit-cover">
+                              <!-- 1張圖卡=================================================================================================================== -->
+                              <div id="coursePage3" class="row">
+                                  <div class="col-3 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=12" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=12"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- 1張圖卡=================================================================================================================== -->
+                                  <div class="col-3 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=12" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=12"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- 1張圖卡=================================================================================================================== -->
+                                  <div class="col-3 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=12" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=12"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <!-- 1張圖卡=================================================================================================================== -->
+                                  <div class="col-3 mb-5 event_card_container">
+                                      <div class="card h-100 p-0 mb-0 event_card event_card">
+                                          <!-- EVENT link-->
+                                          <a href="">
+                                              <!-- EVENT image-->
+                                              <div class="photo">
+                                                  <img class="card-img-top event_pic"
+                                                      src="https://picsum.photos/300/200/?random=12" alt="..." />
+                                              </div>
+
+                                              <!-- EVENT details-->
+                                              <div class="card-body p-2">
+                                                  <div class="text-left">
+                                                      <!-- EVENT title-->
+                                                      <div class="event_title">
+                                                          <h5 class="card-title fw-bolder  text-truncate">
+                                                              大里故鄉唱歌、吃飯(現在到9點)
+                                                          </h5>
+                                                      </div>
+                                                      <!-- EVENT location -> City & Place -->
+                                                      <div class="mb-2 event_location">
+                                                          <span class="card-text  text-muted event_city">台北市</span>
+                                                          <span class="card-text text-muted event_place">
+                                                              盈峰河濱河濱足球場</span>
+                                                      </div>
+                                                      <div class="event_start_time">
+                                                          <p class="card-text text-muted">星期四,四月 6日 08:30</p>
+                                                      </div>
+
+                                                  </div>
+                                              </div>
+                                              <!-- Product actions-->
+
+                                              <div class="card-footer p-2  bg-transparent justify-content-between">
+
+                                                  <div class="d-flex flex-row align-items-center event_creater">
+                                                      <div class="member-icon">
+                                                          <img src="https://picsum.photos/300/200/?random=12"
+                                                              class="overflow-hidden rounded-circle p-0" id=""
+                                                              href="#" role="button" data-bs-toggle="dropdown"
+                                                              aria-expanded="false" width="36" height="36">
+                                                      </div>
+
+                                                      <div class="col-8 ms-2 c-details">
+                                                          <h6 class=" mb-0  fw-bolder text-muted text-truncate">
+                                                              Dawdddd0000000ddddoo
+                                                          </h6>
+                                                          <span class=" text-muted">sss</span>
+                                                      </div>
+                                                      <!-- <div class="col-2"></div> -->
+                                                  </div>
+                                              </div>
+                                          </a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <!-- <img src="https://picsum.photos/1920/300/?random=12" class="d-block" alt="..."> -->
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-1 my-auto ms-auto">
+                      <!-- 往後翻 -->
+                      <button class="" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+    
+  </div>
+
+{% endblock %}
