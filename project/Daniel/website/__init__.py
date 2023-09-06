@@ -4,9 +4,13 @@ from os import path
 import sqlalchemy
 import logging
 import pandas as pd
+import redis
+from mlxtend.frequent_patterns import apriori, association_rules
 
 db = SQLAlchemy()
 DB_NAME= 'transection.db'
+redisClient = redis.Redis(host='localhost', port=6379, decode_responses=True, db=1)
+redisdname='CartList'
 
 df = pd.read_csv(r"C:\Users\Daniel\Python-movie-project\project\Daniel\website\static\shoppingcart.csv")
 
@@ -62,3 +66,33 @@ def create_database(app):
         # my_table.drop(engine)
 
         print('created database')
+
+
+
+def load_and_filiter_data(df, min_support=0.01, min_confidence=0.5):
+    # 读取数据
+    
+    #過濾帳單出現次數小於2次的record
+    item_counts = df['Itemname'].value_counts(ascending=False)
+    filtered_items = item_counts.loc[item_counts > 1].index
+    df = df[df['Itemname'].isin(filtered_items)]
+    
+    bill_counts = df['BillNo'].value_counts(ascending=False)
+    filtered_bills = bill_counts.loc[bill_counts > 1].index
+    df = df[df['BillNo'].isin(filtered_bills)]
+    
+    # Create pivot_table for encoding
+    pivot_table = pd.pivot_table(df[['BillNo','Itemname']], index='BillNo', columns='Itemname', aggfunc=lambda x: True, fill_value=False)
+    
+    # Creaete Frequent table
+    frequent_itemsets = apriori(pivot_table, min_support=min_support, use_colnames=True)
+    
+    # 生成關聯規則
+    rules = association_rules(frequent_itemsets, "confidence", min_threshold=min_confidence)
+    
+    # Based on support sorting    
+    rules = rules.sort_values(['confidence', 'lift'], ascending=[False, False])
+    return rules
+rules=load_and_filiter_data(df)
+Top10=list(df.groupby('Itemname')['Quantity'].sum().sort_values(ascending=False).head(10).index)
+    

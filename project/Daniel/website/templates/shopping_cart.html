@@ -2,178 +2,177 @@
 {% block title %}changed{% endblock %}
 
 {% block content %}
+<h1>Welcome to shopping cart - leshhh gooo man</h1>
+<!-- <form  class="d-flex" role="search" method="post" action="/search_input"> -->
+<div class="col-12 d-flex mb-2">
+    <input class="col-md-8 form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_input"
+        id="search_bar_input">
+    <button class="btn btn-outline-success " type="submit" id="search_btn" onclick="search_input()">Search</button>
+</div>
+<!-- </form> -->
+<h1>Result</h1>
+<hr class="my-4">
 
-<section class="h-100 h-custom" style="background-color: #d2c9ff;">
-  <div class="container py-5 h-100">
+<!-- <section class="h-100 h-custom" style="background-color: #d2c9ff;">
+    <div class="container py-5 h-100" >
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12">
           <div class="card card-registration card-registration-2" style="border-radius: 15px;">
             <div class="card-body p-0">
               <div class="row g-0">
-                <div class="col-lg-8">
-                  <div class="p-5">
-                    <div class="d-flex justify-content-between align-items-center mb-5">
-                      <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                      <h6 class="mb-0 text-muted">3 items</h6>
-                    </div>
-                    <hr class="my-4">
+                <div class="col-lg-8"> -->
+                  <!-- <div class="p-5"> -->
+                    <div class="row justify-content-center mt">
+                        <!-- 課程介紹區 -->
+                        <div class="col-md-12 p-5 mt-2 mb-2 bg-light rounded-3 mt-4">
+                            <div class="container-fluid pt-1 pb-4 card" data-creatorid="" id="eventCard">                   
+                    <!-- =============================== -->
+
+                    <div class="row mb-4 d-flex align-items-center">
+                        <!-- <div class="col-md-12"> -->
                     
-                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                      <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img5.webp"
-                        class="img-fluid rounded-3" alt="Cotton T-shirt">
-                      </div>
-                      <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="text-muted">Shirt</h6>
-                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                      </div>
-                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                        </button>
-                        
-                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-  
-                        <button class="btn btn-link px-2"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </div>
-                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0">€ 44.00</h6>
-                      </div>
-                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                      </div>
-                      <!-- ============================ -->
-                    </div>
-  
-                    <hr class="my-4">
+                            <div class="col-md-3 ">
+                                <!-- <h6 class="text-muted">Shirt</h6> -->
+                                <h6 class="text-black mb-0" >Product Name</h6>
+                            </div>
                     
-                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                      <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img6.webp"
-                          class="img-fluid rounded-3" alt="Cotton T-shirt">
-                        </div>
-                      <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="text-muted">Shirt</h6>
-                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                      </div>
-                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button class="btn btn-link px-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                          <i class="fas fa-minus"></i>
-                        </button>
-                        
-                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                          class="form-control form-control-sm" />
-  
-                        <button class="btn btn-link px-2"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </div>
-                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0">€ 44.00</h6>
-                      </div>
-                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                      </div>
-                    </div>
-  
-                    <hr class="my-4">
-                    
-                    <div class="row mb-4 d-flex justify-content-between align-items-center">
-                      <div class="col-md-2 col-lg-2 col-xl-2">
-                        <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img7.webp"
-                          class="img-fluid rounded-3" alt="Cotton T-shirt">
-                      </div>
-                      <div class="col-md-3 col-lg-3 col-xl-3">
-                        <h6 class="text-muted">Shirt</h6>
-                        <h6 class="text-black mb-0">Cotton T-shirt</h6>
-                      </div>
-                      <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                        <button class="btn btn-link px-2"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                          <i class="fas fa-minus"></i>
-                        </button>
-                        
-                        <input id="form1" min="0" name="quantity" value="1" type="number"
-                        class="form-control form-control-sm" />
-  
-                        <button class="btn btn-link px-2"
-                          onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                          <i class="fas fa-plus"></i>
-                        </button>
-                      </div>
-                      <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                        <h6 class="mb-0">€ 44.00</h6>
-                      </div>
-                      <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                        <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
-                      </div>
-                    </div>
-                    
-                    <hr class="my-4">
-                    
-                    <div class="pt-5">
-                      <h6 class="mb-0"><a href="#!" class="text-body"><i
-                        class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 bg-grey">
-                  <div class="p-5">
-                    <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                    <hr class="my-4">
-                    
-                    <div class="d-flex justify-content-between mb-4">
-                      <h5 class="text-uppercase">items 3</h5>
-                      <h5>€ 132.00</h5>
-                    </div>
-  
-                    <h5 class="text-uppercase mb-3">Shipping</h5>
-  
-                    <div class="mb-4 pb-2">
-                      <select class="select">
-                        <option value="1">Standard-Delivery- €5.00</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                        <option value="4">Four</option>
-                      </select>
-                    </div>
-  
-                    <h5 class="text-uppercase mb-3">Give code</h5>
-  
-                    <div class="mb-5">
-                      <div class="form-outline">
-                        <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
-                        <label class="form-label" for="form3Examplea2">Enter your code</label>
-                      </div>
-                    </div>
-  
-                    <hr class="my-4">
-                    
-                    <div class="d-flex justify-content-between mb-5">
-                      <h5 class="text-uppercase">Total price</h5>
-                      <h5>€ 137.00</h5>
-                    </div>
-                    
-                    <button type="button" class="btn btn-dark btn-block btn-lg"
-                      data-mdb-ripple-color="dark">Register</button>
-  
-                    </div>
+                            <div class="col-md-2">
+                                <h6 class="mb-0">Price</h6>
+                            </div>
+                            <div class="col-md-2 me-2">
+                                <h6 class="mb-0" >Quantity</h6>
+                            </div>
+                            <div class="col-md-5">
+                            </div>
+<hr class="my-4">
+<ul>
+{% for item in cart%}
+<li class="" data_key="{{item.key}}">
+<div class="row mb-4 d-flex justify-content-between align-items-center">
+    <!-- <div class="col-md-12"> -->
+
+        <div class="col-md-3 ">
+            <!-- <h6 class="text-muted">Shirt</h6> -->
+            <h6 class="text-black mb-0 item_name">{{item.Itemname}}</h6>
+        </div>
+
+        <div class="col-md-2">
+            <h6 class="mb-0 item_price">{{item.Price}}</h6>
+        </div>
+        <div class="col-md-3 me-2">
+            <!-- <input type="number" id="points" name="points" step="1" min="1"> -->
+            <div class="form-outline"> 
+                <!-- style="width: 22rem;" -->
+                <input min="1" max="100" type="number"  value="{{item.Quantity}}" class="form-control item_quantity" />
+            </div>
+        </div>
+
+        
+        <div class="col-md-3">
+            <button type="button" class="btn btn-success me-1" id="add2Cart" onclick="add2Cart()">update</button>
+            <!-- <button type="button" class="text-muted btn-class" id="item_delete"><i class="fas fa-times "></i></button> -->
+            <button type="button" class="btn-close item_delete" aria-label="Close"></button>
+        </div>
+    <!-- </div> -->
+</div>
+<hr class="my-4">
+</li>
+{% endfor %}
+</ul>
+                    <!-- =============================== -->
+                  <!-- </div> -->
+                  <!-- <button type="button" class="btn-close " aria-label="Close"></button> -->
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- </div></div></div></div></section> -->
+        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
+            <div class="navbar-brand">Customer ID (not required)</div>
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span> -->
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
+                  <input type="number" class="form-control item_quantity" />
+                  <div class="nav-item" style="color: white;">Total:</div>
+                  <input type="text" ="nav-item" >Country
+            </div>
+                </li>
+                 
+                  <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                  <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
+
+                  <div>Total:</div>
+                  <span>20</span>
+                </li>
+                <li class="nav-item dropup">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropup</a>
+                  <div class="dropdown-menu" aria-labelledby="dropdown10">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
 {% endblock %}
+
+
+{% block script%}
+<script>
+    function hi(){
+        console.log('siuuuu')
+    }
+    $("#add2Cart").on("click", function (e){
+        console.log('siuuuu')
+        item_name=$("#item_name").text()
+        item_price=$("#item_price").text()
+        item_quantity=$("#item_quantity").val()
+        console.log(item_name)
+        console.log(item_price)
+        console.log(item_quantity)
+    });
+
+    $(document).on("click", "button.item_delete", function(e){
+        console.log(this)
+        key = $(this).closest('li').attr('data_key')
+        console.log(key)
+        let check = confirm("Confirm to delete");
+        let that = this;
+        console.log(check);
+        if (check) {
+            fetch("/cart/delete", {
+                method: "POST",
+                body: JSON.stringify({ key: key }),
+            }).then((response) => response.text()) // Convert the response to text
+                .then((responseText) => {
+                console.log(responseText);
+                // Replace the entire page content with the new HTML
+                // document.body.innerHTML = html;
+                // document.innerHTML
+                if(responseText ==='1'){
+                        $(that).closest("li").animate({
+                        "opacity": 0
+                        }, 1000, "swing", function () {
+                        $(this).remove();
+                        });
+                    }
+                })
+                .catch((error) => {
+                console.error("Error:", error);
+                });
+        }
+
+
+
+
+    });
+</script>
+{% endblock %}
+
+

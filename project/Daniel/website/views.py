@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for, jsonify
 from .model import Order_details, Order_detail, Order, Orders, Product
-from . import db
-from . import df
+from . import df, redisClient, db, redisdname
 import pandas as pd
 from datetime import datetime
 from sqlalchemy import select, func
@@ -90,15 +89,53 @@ def search_input():
 @views.route('/product_info_recommendation/<product>', methods=["GET"])
 def product_info_recommendation(product):
         return render_template('shopping_cart.html',product=product)
-# @views.route('/cart',methods=["POST","GET"])
-# def cart():
-#         if request.method == "GET":
-                        
-#                 return render_template('shopping_cart.html') #,product=product
-#         elif request.method == "POST":
-#                 return 's'
-@views.route('/carts',methods=["POST", "GET"])
-def carts():
+@views.route('/cart',methods=["POST","GET"])
+def cart():
+        if request.method == "GET":
+                cart_list=[]
+                item_lst = list(redisClient.scan_iter(redisdname+ ":*"))
+                for key in item_lst:
+                        item = redisClient.hgetall(key)
+                        item["key"]=key
+                        cart_list.append(item)
+                        # print(key, redisClient.hgetall(key))
+                print(cart_list)                
+                
+                return render_template('shopping_cart.html', cart=cart_list) #,product=product
+        elif request.method == "POST":
+                # Itemname= request.form.get('Itemname')
+                # Quantity= request.form.get('Quantity')
+                # Price=request.form.get('Price')
+                print("========post /cart========")
+                item = json.loads(request.data)
+                print("=======data =======", item)
+                print("=======item.items() =======", item.items())
+                # search_input = item["item_name"]
+                # print(search_input)
+                
+                cart_item_count= len(list(redisClient.scan_iter(redisdname+ ":*")))
+                print("=====cart_item_count=====",cart_item_count)
+                print("====get('Itemname')",item.get("Itemname"))
+                Itemname = item.get("Itemname")
+                lst = all([redisClient.hset(redisdname+':'+ Itemname, k, v) for k, v in item.items()])
+                print('============shop list========', lst)
+                # redisClient.hset('cartl:'+str(i), 'price', 5)  
+                # search_input_list = [search_input]                
+                # redisClient.lpush(redisdb, )
+                if lst:
+                        return 'success'
+                else:
+                        return 'failure'
+@views.route('/cart/delete',methods=["POST"])
+def delete_item():
+        data = json.loads(request.data)
+        key = data['key']
+        del_count = redisClient.delete(key)
+        print('==========delete======',del_count)
+        return str(del_count)
+
+@views.route('/confirm',methods=["POST", "GET"])
+def confirm():
         if request.method == "GET":
                 s = pd.read_csv(r"C:\Users\Daniel\Python-movie-project\project\Daniel\website\static\shoppingcart.csv")
                 # ======= create order detail db ==========

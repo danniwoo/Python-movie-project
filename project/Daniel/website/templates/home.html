@@ -11,7 +11,7 @@
   <button class="btn btn-outline-success " type="submit" id="search_btn" onclick="search_input()">Search</button>
 </div>
 <!-- </form> -->
-<h1>siuuuuu</h1>
+<h1>Home</h1>
 {% endblock %}
 
 
@@ -43,7 +43,7 @@
         body: JSON.stringify({ search_input: search_bar_input }),
       }).then((response) => response.text()) // Convert the response to text
         .then((html) => {
-          console.log(html);
+          // console.log(html);
           // Replace the entire page content with the new HTML
           document.body.innerHTML = html;
           // document.innerHTML
@@ -51,6 +51,10 @@
         .catch((error) => {
           console.error("Error:", error);
         });
+    }
+
+    function hi(){
+        console.log('siuuuu')
     }
     // $.ajax({
     //   url:"",

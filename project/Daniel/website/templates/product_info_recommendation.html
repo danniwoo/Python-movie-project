@@ -33,14 +33,14 @@
                     
                             <div class="col-md-3 ">
                                 <!-- <h6 class="text-muted">Shirt</h6> -->
-                                <h6 class="text-black mb-0" id="item_name">Product Name</h6>
+                                <h6 class="text-black mb-0" >Product Name</h6>
                             </div>
                     
                             <div class="col-md-2">
-                                <h6 class="mb-0" id="item_price">Price</h6>
+                                <h6 class="mb-0">Price</h6>
                             </div>
                             <div class="col-md-2 me-2">
-                                <h6 class="mb-0" id="item_price">Quantity</h6>
+                                <h6 class="mb-0" >Quantity</h6>
                             </div>
                             <div class="col-md-5">
                             </div>
@@ -61,14 +61,14 @@
             <!-- <input type="number" id="points" name="points" step="1" min="1"> -->
             <div class="form-outline"> 
                 <!-- style="width: 22rem;" -->
-                <input min="1" max="100" type="number" id="typeNumber" class="form-control" />
+                <input min="1" max="100" type="number" id="item_quantity" class="form-control" />
             </div>
         </div>
 
         
         <div class="col-md-3">
             <!-- <a href="#!" class="text-muted"><i class="fas fa-times"></i></a> -->
-            <button type="button" class="btn btn-success">Add to Cart</button>
+            <button type="button" class="btn btn-success" id="add2Cart" onclick="add2Cart()">Add to Cart</button>
         </div>
     <!-- </div> -->
 </div>
@@ -83,8 +83,18 @@
 
 {% block script%}
 <script>
-    $("#item_name").text("{{product[0]}}")
-    $("#item_price").text("{{product[1]}}")
+    function hi(){
+        console.log('siuuuu')
+    }
+    $("#add2Cart").on("click", function (e){
+        console.log('siuuuu')
+        item_name=$("#item_name").text()
+        item_price=$("#item_price").text()
+        item_quantity=$("#item_quantity").val()
+        console.log(item_name)
+        console.log(item_price)
+        console.log(item_quantity)
+    });
 
 </script>
 {% endblock %}
