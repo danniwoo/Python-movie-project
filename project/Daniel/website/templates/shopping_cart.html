@@ -87,37 +87,56 @@
             </div>
         <!-- </div></div></div></div></section> -->
         <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-            <div class="navbar-brand">Customer ID (not required)</div>
+          <a class="navbar-brand" href="#">Bottom navbar</a>
+            <!-- <div class="navbar-brand">Customer ID (not required)</div> -->
             <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span> -->
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+              <ul class="navbar-nav mr-auto me-3">
+                <li class="nav-item active me-3">
                   <!-- <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a> -->
-                  <input type="number" class="form-control item_quantity" />
-                  <div class="nav-item" style="color: white;">Total:</div>
-                  <input type="text" ="nav-item" >Country
-            </div>
+                  <div class="col-12">
+                  <div class="nav-item" style="color: white;">CustomerID (not required)</div>
+                  <input type="number" min="0" max="999999" class="form-control item_quantity" id="cart_customerID"/>
+                  </div>
+                  
+            <!-- </div> -->
                 </li>
-                 
-                  <a class="nav-link" href="#">Link</a>
+
+                  <!-- <a class="nav-link" href="#">Link</a> -->
+                <li class="nav-item me-3">
+                  <div class="nav-item" style="color: white;">Country</div>
+                  <select class="form-select" aria-label="Default select example" id="cart_country">
+                    <option selected disabled>Select your Country</option>
+                    {% for country in countries %}
+                      <option value="{{country}}">{{country}}</option>
+                    {% endfor %}
+                  </select>
+
                 </li>
-                <li class="nav-item">
+                </li>
+                <!-- <li class="nav-item me-3">
+                  <span class="" style="color: white;">Country:</span>
+                  <input type="text" class="nav-item form-control" >
+                </li> -->
+                <li class="nav-item me-3" style="color: white;">
                   <!-- <a class="nav-link disabled" href="#">Disabled</a> -->
 
-                  <div>Total:</div>
-                  <span>20</span>
+                  <!-- <div>Total:</div>
+                  <span>20</span> -->
+                  <div class="nav-item fw-bolder" style="color: white;">Total:</div>
+                  <!-- <span>50</span> -->
+                  <input class="form-control" type="number" placeholder="Readonly input here…" value="{{cart_totalprice_redis}}" id="cart_total_price" readonly>
                 </li>
-                <li class="nav-item dropup">
-                  <a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropup</a>
-                  <div class="dropdown-menu" aria-labelledby="dropdown10">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </div>
+                <li class="nav-item">
                 </li>
+                
               </ul>
+              <div class="row">
+              <button type="button" class="btn btn-success" onclick="confirm_shoplist()">Confirm</button> 
+            </div>
+
             </div>
           </nav>
 {% endblock %}
@@ -125,9 +144,45 @@
 
 {% block script%}
 <script>
+  function confirm_shoplist(){
+  console.log('siuuuu')
+        cart_customerID=$("#cart_customerID").val()
+        cart_country=$("#cart_country").val()
+        cart_total_price=$("#cart_total_price").val()
+        console.log(cart_customerID,cart_country,cart_total_price)
+        if (cart_country !=='Select your Country' && cart_total_price!=='' && cart_total_price!==0){
+          console.log( cart_total_price!=='' )
+        let check = confirm("Confirm to confirm");
+        console.log(check);
+          if (check) {
+                fetch("/cart/confirm", {
+                        method: "POST",
+                        body: JSON.stringify({ 
+                          cart_customerID: cart_customerID,
+                          cart_country: cart_country,
+                          cart_total_price: cart_total_price
+                        }),
+                    }).then((response) => response.text()) // Convert the response to text
+                        .then((responseText) => {
+                        console.log(responseText);
+                        // Replace the entire page content with the new HTML
+                        // document.body.innerHTML = html;
+                        // document.innerHTML
+                        })
+                        .catch((error) => {
+                        console.error("Error:", error);
+                        });
+                }
+              }
+}
+
     function hi(){
         console.log('siuuuu')
     }
+    document.addEventListener("DOMContentLoaded", function() {
+  // Code to be executed when the DOM is fully loaded.
+  // This ensures that the page structure is ready for manipulation.
+
     $("#add2Cart").on("click", function (e){
         console.log('siuuuu')
         item_name=$("#item_name").text()
@@ -172,6 +227,9 @@
 
 
     });
+
+  });
+
 </script>
 {% endblock %}
 

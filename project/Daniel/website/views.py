@@ -80,7 +80,7 @@ def search_input():
                 product = db.session.query(Product.Itemname, Product.Price).filter(Product.Itemname==search_input).first()
                 
                 print('------product----------: ',product)
-                return render_template('product_info_recommendation.html', product=product)
+                return render_template('product_info_recommendation.html', product=product, relist=recoommendation_list)
                 # return redirect(url_for('views.product_info_recommendation',product=product))
                
         elif request.method == "GET":
@@ -94,14 +94,29 @@ def cart():
         if request.method == "GET":
                 cart_list=[]
                 item_lst = list(redisClient.scan_iter(redisdname+ ":*"))
+                cart_totalprice_redis=0
                 for key in item_lst:
                         item = redisClient.hgetall(key)
                         item["key"]=key
                         cart_list.append(item)
+
+                        
+                        price = float(item["Price"])
+                        quantity = int(item["Quantity"])
+                        cart_totalprice_redis+=price* quantity
+                        # print("=======price * quantity=====", price, quantity,  price* quantity, type(quantity))
                         # print(key, redisClient.hgetall(key))
                 print(cart_list)                
-                
-                return render_template('shopping_cart.html', cart=cart_list) #,product=product
+                # query = (
+                # session.query(Order_details.Country)
+                # .group_by(Order_details.Country)
+                # )     
+                Countries= df['Country'].unique().tolist()    
+
+
+                print('=======Countries=======',Countries)       
+                print('=======cart_totalprice_redis=======',cart_totalprice_redis)       
+                return render_template('shopping_cart.html', cart=cart_list, countries=Countries, cart_totalprice_redis=cart_totalprice_redis) #,product=product
         elif request.method == "POST":
                 # Itemname= request.form.get('Itemname')
                 # Quantity= request.form.get('Quantity')
@@ -123,9 +138,10 @@ def cart():
                 # search_input_list = [search_input]                
                 # redisClient.lpush(redisdb, )
                 if lst:
-                        return 'success'
+                        return 'Product add to cart successfully'
                 else:
-                        return 'failure'
+                        return 'updated <' + Itemname+ '> quantity: ' + str(item['Quantity'])
+                        # return 'Failed to Add Item to Cart'
 @views.route('/cart/delete',methods=["POST"])
 def delete_item():
         data = json.loads(request.data)
@@ -134,7 +150,16 @@ def delete_item():
         print('==========delete======',del_count)
         return str(del_count)
 
-@views.route('/confirm',methods=["POST", "GET"])
+@views.route('/cart/count',methods=["GET"])
+def shop_list_count():
+        # data = json.loads(request.data)
+        # key = data['key']
+        # del_count = redisClient.delete(key)
+        cart_item_count= len(list(redisClient.scan_iter(redisdname+ ":*")))
+        print('==========cart_item_count======',cart_item_count)
+        return str(cart_item_count)
+
+@views.route('/cart/confirm',methods=["POST", "GET"])
 def confirm():
         if request.method == "GET":
                 s = pd.read_csv(r"C:\Users\Daniel\Python-movie-project\project\Daniel\website\static\shoppingcart.csv")
@@ -182,6 +207,47 @@ def confirm():
                 return render_template('shopping_cart.html')
                 # return render_template('product_info_recommendation.html')
         elif request.method == "POST":
+                data = json.loads(request.data)
+                cart_customerID = data['cart_customerID'] 
+                cart_country = data['cart_country'] 
+
+                print('======== /cart/confirm =======', data)  
+                item_lst = list(redisClient.scan_iter(redisdname+ ":*"))
+                cart_totalprice_redis=0
+                new_order_details_list=[]
+                for key in item_lst:
+                        item = redisClient.hgetall(key)
+                        price = float(item["Price"])
+                        quantity = int(item["Quantity"])
+                        item_sum=price* quantity
+                        cart_totalprice_redis+=item_sum
+                new_order = Order(date= datetime.now(), Total = cart_totalprice_redis) #Quantity*Price
+                db.session.add(new_order)
+                db.session.commit()
+
+                for key in item_lst:
+                        item = redisClient.hgetall(key)
+                        Itemname=item["Itemname"]
+                        price = float(item["Price"])
+                        quantity = int(item["Quantity"])
+                        item_sum=price* quantity
+                        print(f'====== new Order_detail =======  CustomerID={cart_customerID}, Itemname={Itemname},Quantity={quantity},Country={cart_country},BillNo={new_order.BillNo}, date=datetime.now(), Price={price}, item_sum={item_sum}')
+                        new_order_detail = Order_details(CustomerID=cart_customerID, Itemname=Itemname,Quantity=quantity,Country=cart_country,BillNo=new_order.BillNo, date=datetime.now(), Price=price, item_sum=item_sum)
+                        new_order_details_list.append(new_order_detail)
+                print("======= new_order_details_list[]=======",new_order_details_list)
+                db.session.add_all(new_order_details_list)
+                db.session.commit()                
+                # new_order_details = Order_detail(CustomerID=17850, Itemname="WHITE METAL LANTERN",Quantity=7,Country="United Kingdom",BillNo=new_order.BillNo, date=datetime.now(), Price=50.0, item_sum=350.0)
+                # new_order_details2 = Order_detail(CustomerID=17850, Itemname="WHITE METAL LANTERN",Quantity=7,Country="United Kingdom",BillNo=new_order.BillNo, date=datetime.now(), Price=50.0, item_sum=350.0)
+
+                # order=[new_order_details,new_order_details2]
+                # db.session.add_all(order)
+                # db.session.commit()
+                # print('new order')
+                
+                #                   cart_customerID: cart_customerID,
+                #   cart_country: cart_country,
+                #   cart_total_price: cart_total_price
         #        Itemname= request.form.get('Itemname')
         #        Quantity= request.form.get('Quantity')
         #        Country=request.form.get('Country')
@@ -194,6 +260,7 @@ def confirm():
         #        new_order_details = Order_details(Itemname="WHITE METAL LANTERN",Quantity=6,Country="United Kingdom",BillNo=581588) #BillNo=BillNo
         #        db.session.add(new_order_details)
         #        db.session.commit()
-               return redirect(url_for('views.home'))
+                # return redirect(url_for('views.home'))
+                return '/cart/confirm'
                
                

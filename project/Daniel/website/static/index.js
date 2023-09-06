@@ -21,9 +21,7 @@ function add2Cart(){
           }).then((response) => response.text()) // Convert the response to text
             .then((resp) => {
               console.log("success:",resp);
-              if (resp=="success"){
-                console.log("siuuuuuuuuuuuuuuuuuuuuuuuu")
-              }
+                alert(resp);
               // Replace the entire page content with the new HTML
             //   document.body.innerHTML = html;
               // document.innerHTML
@@ -35,3 +33,23 @@ function add2Cart(){
         }
     }
 
+
+
+
+fetch("/cart/count", {
+  method: "GET"
+}).then((response) => response.text()) // Convert the response to text
+  .then((shop_list_count) => {
+    console.log("success:",shop_list_count);
+    $("#shop_list_count").text(shop_list_count)
+
+    // if (resp=="success"){
+    //   console.log("siuuuuuuuuuuuuuuuuuuuuuuuu")
+    // }
+    // Replace the entire page content with the new HTML
+  //   document.body.innerHTML = html;
+    // document.innerHTML
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
