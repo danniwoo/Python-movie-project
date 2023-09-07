@@ -28,9 +28,9 @@ def generate_recommendations(search_history, shoppingcart_list, min_support=0.01
     user_recommendations = get_recommendations(search_history, associate_rules)
     
     # 
-    while len(user_recommendations) <5:
+    while len(user_recommendations) <6:
         for i in Top10:
-            if len(user_recommendations) < 5:
+            if len(user_recommendations) < 6:
                 user_recommendations.add(i)
             if i in shoppingcart_list:
                 user_recommendations.discard(i)
