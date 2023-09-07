@@ -2,43 +2,117 @@
 {% block title %}changed{% endblock %}
 
 
+{% block greeting %}<h1>Market basket Analysis</h1>{% endblock %}
 {% block content %}
-<h1>Welcome to shopping cart</h1>
-<!-- <form  class="d-flex" role="search" method="post" action="/search_input"> -->
-<div class="col-12 d-flex">
+<!-- <h1>Welcome to shopping cart</h1> -->
+<!-- <div class="col-12 d-flex">
   <input class="col-md-8 form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_input"
     id="search_bar_input">
   <button class="btn btn-outline-success " type="submit" id="search_btn" onclick="search_input()">Search</button>
-</div>
-<!-- </form> -->
+</div> -->
 <h1>Home</h1>
+<hr class="my-4">
+<div class="row justify-content-center mt">
+  <!-- 課程介紹區 -->
+  <div class="col-md-12 p-5 mt-2 mb-2 bg-light rounded-3 mt-4">
+      <div class="container-fluid pt-1 pb-4 card" data-creatorid="" id="eventCard">                   
+<!-- =============================== -->
+
+<div class="row mb-4 d-flex align-items-center">
+  <!-- <div class="col-md-12"> -->
+
+      <div class="col-md-2 ">
+          <!-- <h6 class="text-muted">Shirt</h6> -->
+          <h6 class="text-black mb-0" >Top</h6>
+      </div>
+      <div class="col-md-3 ">
+          <!-- <h6 class="text-muted">Shirt</h6> -->
+          <h6 class="text-black mb-0" >Product Name</h6>
+      </div>
+
+      <div class="col-md-2">
+          <h6 class="mb-0">Price</h6>
+      </div>
+      <!-- <div class="col-md-2 me-2">
+          <h6 class="mb-0" >Quantity</h6>
+      </div> -->
+      <div class="col-md-5">
+      </div>
+<hr class="my-4">
+<ul>
+{% for i in range(10)%}
+<li class="top_10_list" data_key="{{hot_seller.key}}" data-Itemname="{{hot_seller[i][0]}}">
+<div class="row mb-4 d-flex justify-content-between align-items-center">
+
+<div class="col-md-2 ">
+<h6 class="text-black mb-0 item_">{{i+1}}</h6>
+</div>
+
+<div class="col-md-2">
+<h6 class="mb-0 item_name">{{hot_seller[i][0]}}</h6>
+</div>
+<div class="col-md-3 me-2">
+<!-- <div class="form-outline">  -->
+  <h6 class="mb-0 item_price">{{hot_seller[i][1]}}</h6>
+<!-- </div> -->
+</div>
+
+<div class="col-md-3 me-2">
+</div>
+<div class="col-md-2 me-2">
+</div>
+
+</div>
+<hr class="my-4">
+</li>
+{% endfor %}
+</ul>
+</div>
+</div>
+</div>
+</div>
 {% endblock %}
 
 
 {% block script%}
 <script>
-  $(function () {
-    var availableTags = [
-      {% for Itemname in Itemnames %}
-              "{{Itemname}}",
-    {% endfor %}
-      ];
-  $("#search_bar_input").autocomplete({
-    source: availableTags
-  });
 
-    } );
 
   // calling search api
-  function search_input() {
-    console.log("search_input")
-    const search_bar_input = $("#search_bar_input").val().trim()
-    console.log(search_bar_input)
-    console.log(search_bar_input.length > 0)
-    if (search_bar_input.length > 0) {
+  
+  // function search_input() {
+  //   console.log("search_input")
+  //   const search_bar_input = $("#search_bar_input").val().trim()
+  //   console.log(search_bar_input)
+  //   console.log(search_bar_input.length > 0)
+  //   if (search_bar_input.length > 0) {
 
 
-      fetch("/search_input", {
+  //     fetch("/search_input", {
+  //       method: "POST",
+  //       body: JSON.stringify({ search_input: search_bar_input }),
+  //     }).then((response) => response.text()) // Convert the response to text
+  //       .then((html) => {
+  //         // console.log(html);
+  //         // Replace the entire page content with the new HTML
+  //         document.body.innerHTML = html;
+  //         // document.innerHTML
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error:", error);
+  //       });
+  //   }
+  // }
+
+  $(document).on("click", "li.top_10_list", function(e){
+        console.log(this)
+        // key = $(this).closest('li').attr('data_key')
+        search_bar_input = $(this).attr('data-Itemname')
+        console.log(search_bar_input)
+        // let check = confirm("Confirm to delete");
+        // let that = this;
+        // console.log(check);
+        fetch("/search_input", {
         method: "POST",
         body: JSON.stringify({ search_input: search_bar_input }),
       }).then((response) => response.text()) // Convert the response to text
@@ -51,27 +125,7 @@
         .catch((error) => {
           console.error("Error:", error);
         });
-    }
 
-    function hi(){
-        console.log('siuuuu')
-    }
-    // $.ajax({
-    //   url:"",
-    //   type:'POST',
-    //   dataType:'json',
-    //   data: JSON.stringify({
-    //     search_input:search_bar_input
-    //   }),
-    //   contentType: "application/json; charset=utf-8",
-    //   success: function(response){
-    //     console.log(response);
-    //     console.log(JSON.parse(response));
-    //   },
-    //   error: function(xhr, status, error){
-    //     console.log(xhr.responseText);
-    //   }
-    // });
-  }
+  });
 </script>
 {% endblock %}

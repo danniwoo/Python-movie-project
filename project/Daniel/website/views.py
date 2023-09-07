@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, session, url_for, jsonify
 from .model import Order_details, Order_detail, Order, Orders, Product
-from . import df, redisClient, db, redisdname
+from . import df, redisClient, db, redisdname, Item_names
 import pandas as pd
 from datetime import datetime
 from sqlalchemy import select, func
@@ -17,7 +17,7 @@ def home():
                 # df = pd.read_csv(r"C:\Users\Daniel\Python-movie-project\project\Daniel\website\static\shoppingcart.csv")
         #      languages = ["C++", "Python", "PHP", "Java", "C", "Ruby",
         #              "R", "C#", "Dart", "Fortran", "Pascal", "Javascript"]
-                Itemnames= df['Itemname'].unique().tolist()
+                # Itemnames= df['Itemname'].unique().tolist()
 
                 #replace this {} with the (most top 10 products) from db
                 # hot_seller_ScalarResult  = db.session.execute(select(Order_detail).order_by(Order_detail.Quantity).limit(10))
@@ -60,7 +60,7 @@ def home():
         # Close the session when done
                 print('----------------: ',results)
                 session.close()
-        return render_template('home.html',  Itemnames=Itemnames, hot_seller=results)
+        return render_template('home.html',  Itemnames=Item_names, hot_seller=results)
 
 @views.route('/search_input',methods=["POST","GET"])
 def search_input():
@@ -68,7 +68,16 @@ def search_input():
                 data = json.loads(request.data)
                 search_input = data["search_input"]
                 search_input_list = [search_input]
+
+                # ========== cart list =============
                 shoppingcart_list=[]
+                # item_lst = list(redisClient.scan_iter(redisdname+ ":*"))
+                # cart_totalprice_redis=0
+                # for key in item_lst:
+                #         item = redisClient.hgetall(key)
+                #         Itemname=item["Itemname"]
+                #         shoppingcart_list.append(Itemname)
+                # print("======shoppingcart_list======", shoppingcart_list)
                 # ==========recoommendation_list==========
                 recoommendation_list= generate_recommendations(search_history=search_input_list, shoppingcart_list=shoppingcart_list)
                 print('==========recoommendation_list==========', recoommendation_list)
@@ -80,7 +89,7 @@ def search_input():
                 product = db.session.query(Product.Itemname, Product.Price).filter(Product.Itemname==search_input).first()
                 
                 print('------product----------: ',product)
-                return render_template('product_info_recommendation.html', product=product, relist=recoommendation_list)
+                return render_template('product_info_recommendation.html', product=product, relist=recoommendation_list, Itemnames=Item_names)
                 # return redirect(url_for('views.product_info_recommendation',product=product))
                
         elif request.method == "GET":
@@ -115,8 +124,8 @@ def cart():
 
 
                 print('=======Countries=======',Countries)       
-                print('=======cart_totalprice_redis=======',cart_totalprice_redis)       
-                return render_template('shopping_cart.html', cart=cart_list, countries=Countries, cart_totalprice_redis=cart_totalprice_redis) #,product=product
+                print('=======cart_totalprice_redis=======',round(cart_totalprice_redis,2))       
+                return render_template('shopping_cart.html', cart=cart_list, countries=Countries, cart_totalprice_redis=round(cart_totalprice_redis,2), Itemnames=Item_names) #,product=product
         elif request.method == "POST":
                 # Itemname= request.form.get('Itemname')
                 # Quantity= request.form.get('Quantity')
@@ -134,9 +143,6 @@ def cart():
                 Itemname = item.get("Itemname")
                 lst = all([redisClient.hset(redisdname+':'+ Itemname, k, v) for k, v in item.items()])
                 print('============shop list========', lst)
-                # redisClient.hset('cartl:'+str(i), 'price', 5)  
-                # search_input_list = [search_input]                
-                # redisClient.lpush(redisdb, )
                 if lst:
                         return 'Product add to cart successfully'
                 else:
@@ -221,7 +227,7 @@ def confirm():
                         quantity = int(item["Quantity"])
                         item_sum=price* quantity
                         cart_totalprice_redis+=item_sum
-                new_order = Order(date= datetime.now(), Total = cart_totalprice_redis) #Quantity*Price
+                new_order = Order(date= datetime.now(), Total = round(cart_totalprice_redis,2)) #Quantity*Price
                 db.session.add(new_order)
                 db.session.commit()
 
@@ -236,7 +242,12 @@ def confirm():
                         new_order_details_list.append(new_order_detail)
                 print("======= new_order_details_list[]=======",new_order_details_list)
                 db.session.add_all(new_order_details_list)
-                db.session.commit()                
+                db.session.commit()     
+
+                #delete all keys in redis (by user)
+                for key in redisClient.scan_iter(redisdname+ ":*"):
+                        redisClient.delete(key)        
+
                 # new_order_details = Order_detail(CustomerID=17850, Itemname="WHITE METAL LANTERN",Quantity=7,Country="United Kingdom",BillNo=new_order.BillNo, date=datetime.now(), Price=50.0, item_sum=350.0)
                 # new_order_details2 = Order_detail(CustomerID=17850, Itemname="WHITE METAL LANTERN",Quantity=7,Country="United Kingdom",BillNo=new_order.BillNo, date=datetime.now(), Price=50.0, item_sum=350.0)
 

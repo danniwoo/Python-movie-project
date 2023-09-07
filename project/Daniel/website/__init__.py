@@ -12,7 +12,9 @@ DB_NAME= 'transection.db'
 redisClient = redis.Redis(host='localhost', port=6379, decode_responses=True, db=1)
 redisdname='CartList'
 
+
 df = pd.read_csv(r"C:\Users\Daniel\Python-movie-project\project\Daniel\website\static\shoppingcart.csv")
+Item_names= df['Itemname'].unique().tolist()
 
 def create_app():
     app = Flask(__name__)

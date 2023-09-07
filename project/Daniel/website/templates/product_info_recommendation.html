@@ -1,16 +1,11 @@
 {% extends "base.html" %}
 {% block title %}changed{% endblock %}
 
+{% block greeting %}<h1>Welcome to Search Result</h1>{% endblock %}
 {% block content %}
-<h1>Welcome to shopping siuu</h1>
-<!-- <form  class="d-flex" role="search" method="post" action="/search_input"> -->
-<div class="col-12 d-flex mb-2">
-    <input class="col-md-8 form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_input"
-        id="search_bar_input">
-    <button class="btn btn-outline-success " type="submit" id="search_btn" onclick="search_input()">Search</button>
-</div>
-<!-- </form> -->
-<h1>Result</h1>
+<br>
+<h1>Result: </h1>
+<h6>{{product[0]}} </h6>
 <hr class="my-4">
 
 <!-- <section class="h-100 h-custom" style="background-color: #d2c9ff;">
@@ -80,12 +75,13 @@
         <!-- </div></div></div></div></section> -->
 {% endblock %}
 
-
 {% block script%}
 <script>
     function hi(){
         console.log('siuuuu')
     }
+    // console.log('000000000000000000000')
+    
     $("#add2Cart").on("click", function (e){
         console.log('siuuuu')
         item_name=$("#item_name").text()
@@ -138,7 +134,7 @@
                       </div>
 
 
-                      <div class="carousel-inner">
+                      <div class="carousel-inner" id="card_recommendation_container">
                         {% for i in range(6) %}
                         {% if i%3==0 %}
                             {% if i==0  %}
@@ -150,10 +146,10 @@
                             
                         {% endif %}
                        
-                        <div class="col-4 mb-5 event_card_container">
+                        <div class="col-4 mb-5 event_card_container card_recommendation_item" data-Itemname="{{relist[i]}}">
                             <div class="card h-100 p-0 mb-0 event_card event_card">
                                 <!-- EVENT link-->
-                                <a href="">
+                                <!-- <a href="/"> -->
                                     <!-- EVENT image-->
                                     <div class="photo">
                                         <img class="card-img-top event_pic"
@@ -167,7 +163,7 @@
                                             <!-- <div class="event_title"> -->
                                                 <h5 class="card-title fw-bolder ">
                                                   <!-- WHITE HANGING HEART T-LIGHT HOLDER -->
-                                                  siuuu{{relist[i]}}
+                                                  {{relist[i]}}
                                                 </h5>                    
                                         </div>
                                     </div>
@@ -187,12 +183,11 @@
                                             </div> 
                                         </div>
                                     </div> -->
-                                </a>
+                                <!-- </a> -->
                             </div>
                         </div>
                     
                         {% if i%3==2 %}
-
                                 </div>
                             </div>
                         {% endif %}
